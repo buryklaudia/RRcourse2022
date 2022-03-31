@@ -58,3 +58,17 @@ ggplot(data=data, aes(x=Season, y=Viewership_season_to_season)) +
   expand_limits(x=c(0,10))
 ```
 
+## Short description of changes in viewership 
+
+```{r measures, warning= FALSE, echo =FALSE}
+change1_10 <- data$Viewership_season[data$Season == 10] - data$Viewership_season[data$Season == 1]
+
+high_view <- max(data$Viewership_season)
+low_view <- min(data$Viewership_season)
+high_season <- as.character(data$Season[data$Viewership_season == high_view])
+low_season <- as.character(data$Season[data$Viewership_season == low_view])
+diff <- high_view - low_view
+```
+
+The change between the average viewership of episode between season 10 and 1 was **`r change1_10` mln**. The highest viewership was during season **`r high_season`** and gained **`r high_view`** mln views on average per episode. On the contrary, 
+the season with lowest number of views was the **`r low_season`th** one, and gained up to **`r low_view`** mln views. The difference between both of those seasons is equal to **`r diff`** mln views.
