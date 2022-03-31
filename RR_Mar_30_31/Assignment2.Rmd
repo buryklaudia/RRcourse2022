@@ -8,11 +8,13 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
-data <- read.csv("Data/Viewership.csv", sep = ";")
+library(dplyr)
+data <- read.csv("Data/Viewership.csv", sep = ";",dec = ",")
 colnames(data) <- c("Season","Season_premiere","Season_finale","TV_season",
                      "Viewership_season","Episode_most_watched", "Viewers_episode")
 data$Season <- as.factor(data$Season)
 data$Season_finale <- as.Date(data$Season_finale, format="%d.%m.%Y")
+data$Viewership_season_to_season <- 100*(data$Viewership_season - lag(data$Viewership_season))/data$Viewership_season
 ```
 
 ## Short Description of Friends 
@@ -34,7 +36,7 @@ views on average per episode. The one with the lowest number of views was the **
 
 The following plot shows the average viewership of episode for each season over time, where the date of a season is the season finale. 
 
-```{r viewers_plot}
+```{r viewers_plot, echo = FALSE}
 ggplot(data=data, aes(x=Season_finale, y=Viewership_season, group = 1)) +
   geom_line(color="darkred", size =1.5)+ 
   ggtitle("Average viewership in time (in mln)")+
@@ -43,4 +45,16 @@ ggplot(data=data, aes(x=Season_finale, y=Viewership_season, group = 1)) +
                date_labels = "%Y")
 ```
 
+## Season to season changes in viewership
+
+The following graph presents season to season changes in average viewership of episode during each season. 
+
+```{r season_change, warning= FALSE, echo =FALSE}
+ggplot(data=data, aes(x=Season, y=Viewership_season_to_season)) +
+  geom_bar(stat="identity", fill="darkred")+ 
+  ggtitle("Season-to-season changes in viewership")+
+  labs(x = "Season", y = "Season-to-season changes in viewership (in %)") + 
+  geom_text(aes(label = round(Viewership_season_to_season,2)), vjust = -0.5) +
+  expand_limits(x=c(0,10))
+```
 
