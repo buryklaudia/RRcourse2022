@@ -7,6 +7,12 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+data <- read.csv("Data/Viewership.csv", sep = ";")
+colnames(data) <- c("Season","Season_premiere","Season_finale","TV_season",
+                     "Viewership_season","Episode_most_watched", "Viewers_episode")
+data$Season <- as.factor(data$Season)
+data$Season_finale <- as.Date(data$Season_finale, format="%d.%m.%Y")
 ```
 
 ## Short Description of Friends 
@@ -23,5 +29,18 @@ The following photograph presents logo of a Friends TV Show.
 
 The most watched season was the **2nd season**, with approximately **30 million**
 views on average per episode. The one with the lowest number of views was the **7th season**, with approximately **20,2 million** views on average per episode. Yet, it is still a lot of views for a single episode.
+
+## Viewership over time
+
+The following plot shows the average viewership of episode for each season over time, where the date of a season is the season finale. 
+
+```{r viewers_plot}
+ggplot(data=data, aes(x=Season_finale, y=Viewership_season, group = 1)) +
+  geom_line(color="darkred", size =1.5)+ 
+  ggtitle("Average viewership in time (in mln)")+
+  labs(x = "Season finale", y = "Average Viewership (in mln)") + 
+  scale_x_date(date_breaks = "1 year",
+               date_labels = "%Y")
+```
 
 
