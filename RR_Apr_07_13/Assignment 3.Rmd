@@ -3,11 +3,18 @@ title: "Exercise 2"
 author: "Wojciech Hardy; Łukasz Nawaro"
 date: "3/29/2022"
 output: html_document
+params:
+  season:
+    label: "Season"
+    value: "1"
+    input: select
+    choices: ["1","2","3","4","5","6","7","8"]
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-load("../Data/season_1.RData")
+path = paste("../Data/season_",params$season,".RData", sep = "")
+load(path)
 ```
 
 # Game of Thrones - Season 1 summary in numbers
@@ -24,7 +31,7 @@ Set on the fictional continents of Westeros and Essos, Game of Thrones has a lar
 
 ***
 
-### Season 1 summary
+### Season ``r params$season`` summary
 
 Season 1 of Game of Thrones consisted of 10 episodes that aired between April 17 and June 19, 2011 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season.
 
