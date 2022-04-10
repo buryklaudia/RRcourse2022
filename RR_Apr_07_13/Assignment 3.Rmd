@@ -1,5 +1,5 @@
 ---
-title: "Assignmnet 3"
+title: "Assignment 3"
 author: "Klaudia Bury"
 date: "10/04/2022"
 output: html_document
@@ -39,7 +39,7 @@ season_start <- substr(first_premiere,1,regexpr("\\(",first_premiere)-1)
 last_premiere<-season_data$premiere_date[n_episodes] 
 season_end <- substr(last_premiere,1,regexpr("\\(",last_premiere)-1)
 
-avg_viewers <- mean(season_data$viewers)
+avg_viewers <- round(mean(season_data$viewers),3)
 views_start <- season_data$viewers[1]
 views_end <- season_data$viewers[n_episodes]
 
