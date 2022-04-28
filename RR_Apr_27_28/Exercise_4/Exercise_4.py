@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 # read the file with data
 studPerformance = pd.read_csv('StudentsPerformance.csv')
 
-studPerformance_math = studPerformance.copy()
-
 # Create new dataframe which shows mean of math score grouped by ethnicity
 studPerformance_math = studPerformance.groupby('race/ethnicity')['math score'].mean()
 
