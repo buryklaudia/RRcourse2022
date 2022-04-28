@@ -1,7 +1,7 @@
 ---
-title: "Exercise 2"
-author: "Wojciech Hardy; Łukasz Nawaro"
-date: "3/29/2022"
+title: "Assignment 3"
+author: "Klaudia Bury"
+date: "10/04/2022"
 output: html_document
 params:
   season:
@@ -17,7 +17,7 @@ path = paste("../Data/season_",params$season,".RData", sep = "")
 load(path)
 ```
 
-# Game of Thrones - Season 1 summary in numbers
+# Game of Thrones - Season ``r params$season`` summary in numbers
 
 ### __(*Warning:* spoilers ahead)__
 
@@ -31,13 +31,30 @@ Set on the fictional continents of Westeros and Essos, Game of Thrones has a lar
 
 ***
 
+```{r summary_variables}
+n_episodes <- nrow(season_data)
+first_premiere<-season_data$premiere_date[1] 
+season_start <- substr(first_premiere,1,regexpr("\\(",first_premiere)-1)
+
+last_premiere<-season_data$premiere_date[n_episodes] 
+season_end <- substr(last_premiere,1,regexpr("\\(",last_premiere)-1)
+
+avg_viewers <- round(mean(season_data$viewers),3)
+views_start <- season_data$viewers[1]
+views_end <- season_data$viewers[n_episodes]
+
+max_view <- max(season_data$viewers)
+max_episode <-season_data$title[season_data$viewers == max_view]
+max_description <- season_data$description[season_data$viewers == max_view]
+```
+
 ### Season ``r params$season`` summary
 
-Season 1 of Game of Thrones consisted of 10 episodes that aired between April 17 and June 19, 2011 on HBO. The show gathered an average of 2.515 first-day TV viewers in the US, with the number growing from 2.22 to 3.04 million by the end of the season.
+Season ``r params$season`` of Game of Thrones consisted of `r n_episodes` episodes that aired between `r season_start` and `r season_end` on HBO. The show gathered an average of `r avg_viewers` million views first-day TV viewers in the US, with the number starting from `r views_start` to `r views_end` million by the end of the season.
 
-The most popular episode of the season was "Fire and Blood", in which:
+The most popular episode of the season was `r max_episode`, in which:
 
-> "The North secedes from the Seven Kingdoms and proclaims Robb as king. With Jaime as the Starks' prisoner and Robert's two brothers, Stannis and Renly, each challenging Joffrey's claim to the throne, Tywin appoints Tyrion as acting King's Hand, while Tywin fights to defend Joffrey's reign. Jon attempts to desert the Night's Watch to avenge Ned and join Robb, but his Night's Watch brothers convince him to honor his oath. Jon joins an expedition to search for Benjen Stark beyond the Wall. Yoren, a Night's Watch recruiter, smuggles Arya out of King's Landing disguised as a boy, while Joffrey intends to crown Sansa his queen, despite executing her father. Daenerys's baby is born deformed and dead, and Drogo is left in a vegetative state by the witch's treacherous magic. Daenerys compassionately ends Drogo's life. She places the three dragon eggs on Drogo's funeral pyre and sets it afire, also burning the witch alive. Ignoring Jorah's pleas, she walks into the flames. When the embers die the following morning, Daenerys is found in the ashes, unharmed, flanked by three newly-hatched baby dragons. Jorah and other witnesses kneel before her."
+> `r max_description`
 
 ***
 
@@ -50,10 +67,6 @@ plot(season_data$viewers, type="l", col="red", lwd=5, xlab = "Episode number", y
 ***
 
 Finally, the episodes with the above-average viewership were:
-
-| No. in season | Title  | Directed by  |
-|:------        |:-----: |:------:      |
-| 5             | "The Wolf and the Lion"  | Brian Kirk      |
-| 8             | "The Pointy End" | Daniel Minahan      |
-| 9             | "Baelor" | Alan Taylor      |
-| 10            | "Fire and Blood" | Alan Taylor      |
+```{r viewers_table}
+season_data[season_data$viewers > avg_viewers,c(2,3,4)]
+```
