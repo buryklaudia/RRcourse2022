@@ -9,7 +9,7 @@ def convert(f, target='c'):
     else:
         raise Exception('wrong target')
 
-class TestDivide(unittest.TestCase):
+class TestConvert(unittest.TestCase):
     def test_example(self):
         self.assertEqual(convert(50, target='c'), 10)
         self.assertEqual(convert(70, target='c'), 21.1111111111111111)
@@ -18,8 +18,6 @@ class TestDivide(unittest.TestCase):
     def test_Reaumur_scale(self):
         with self.assertRaises(Exception):
             convert(50, target = 'Reaumur')
-     
-
 
 
 if __name__ == '__main__':
