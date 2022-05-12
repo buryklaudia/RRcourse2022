@@ -1,0 +1,6 @@
+buryklaudia2@instance-1:~$ uname -a
+Linux instance-1 5.15.0-1004-gcp #7-Ubuntu SMP Wed Apr 20 04:26:07 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+buryklaudia2@instance-1:~$ touch test.txt
+buryklaudia2@instance-1:~$ ls -l
+total 0
+-rw-rw-r-- 1 buryklaudia2 buryklaudia2 0 May 12 19:55 test.txt
