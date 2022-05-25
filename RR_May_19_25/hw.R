@@ -5,7 +5,7 @@ library(tidyverse)
 library(readxl)
 
 
-df <- read_excel("C:/Users/Piotr Bury/Desktop/RR/RRcourse2022/RR_May_19_25/data/metaanalysis_data.xlsx")
+df <- read_excel("metaanalysis_data.xlsx")
 
 ?metagen
 
